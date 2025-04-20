@@ -1,78 +1,159 @@
 import React, { useState, useEffect } from 'react';
-import { getGroupAttendance } from '../../api/attendance';
+import { getGroups, getGroupAttendance, getGroupStudents, getSubjects } from '../../api/attendance';
 import GroupSelector from './GroupSelector';
 import './TeacherAttendanceTable.css';
 
 const TeacherAttendanceTable = () => {
   const [attendance, setAttendance] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [group, setGroup] = useState('');
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  const [students, setStudents] = useState([]);
+  const [groups, setGroups] = useState([]);
+  const [subjects, setSubjects] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [selectedGroup, setSelectedGroup] = useState(null); // Изначально пустое значение
+  const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
-    const fetchAttendance = async () => {
-      if (!group) return;
+    const fetchGroups = async () => {
+      try {
+        setLoading(true);
+        const groupsData = await getGroups();
+        setGroups(groupsData);
+      } catch (error) {
+        console.error('Error loading groups:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchGroups();
+  }, []);
+
+  useEffect(() => {
+    const fetchSubjects = async () => {
+      try {
+        const subjectsData = await getSubjects();
+        setSubjects(subjectsData);
+      } catch (error) {
+        console.error('Error loading subjects:', error);
+      }
+    };
+    fetchSubjects();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!selectedGroup || !selectedDate) return;
       
       try {
         setLoading(true);
-        const data = await getGroupAttendance(group, date);
-        setAttendance(data);
+        const [studentsData, attendanceData] = await Promise.all([
+          getGroupStudents(selectedGroup),
+          getGroupAttendance(selectedGroup, selectedDate)
+        ]);
+        
+        setStudents(studentsData);
+        setAttendance(attendanceData);
       } catch (error) {
-        console.error('Error fetching attendance:', error);
+        console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchAttendance();
-  }, [group, date]);
+    fetchData();
+  }, [selectedGroup, selectedDate]);
 
   const handleGroupChange = (groupId) => {
-    setGroup(groupId);
+    setSelectedGroup(groupId);
   };
 
-  const handleDateChange = (newDate) => {
-    setDate(newDate);
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
   };
 
-  if (loading && group) {
-    return <div>Загрузка данных...</div>;
+  const getStudentPhone = (studentId) => {
+    const student = students.find(s => s.id === studentId);
+    return student?.phone || 'Нет данных';
+  };
+
+  const getSubjectName = (subjectId) => {
+    const subject = subjects.find(s => s.id === subjectId);
+    return subject?.name || subjectId;
+  };
+
+  const getUniqueSubjectIds = () => {
+    const subjectIds = new Set();
+    attendance.forEach(student => {
+      student.subjects.forEach(subject => {
+        subjectIds.add(subject.subjectId);
+      });
+    });
+    return Array.from(subjectIds);
+  };
+
+  if (loading) {
+    return <div className="loading">Загрузка данных...</div>;
   }
 
-  if (!attendance.length && group) {
-    return <div>Нет данных о посещаемости для выбранной группы и даты</div>;
+  if (!groups.length) {
+    return <div className="no-data">Нет доступных групп</div>;
   }
 
-  const subjects = attendance.length > 0 ? attendance[0].subjects : [];
+  const uniqueSubjectIds = getUniqueSubjectIds();
 
   return (
     <div className="teacher-attendance-container">
-      <GroupSelector onGroupChange={handleGroupChange} onDateChange={handleDateChange} />
+      <GroupSelector 
+        groups={groups}
+        selectedGroup={selectedGroup}
+        onGroupChange={handleGroupChange}
+        date={selectedDate}
+        onDateChange={handleDateChange}
+      />
       
-      <table className="teacher-attendance-table">
-        <thead>
-          <tr>
-            <th>ФИО</th>
-            <th>Телефон</th>
-            {subjects.map((subject) => (
-              <th key={subject.id}>{subject.name}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {attendance.map((student) => (
-            <tr key={student.id}>
-              <td>{student.name}</td>
-              <td>{student.phone || 'Не указан'}</td>
-              {student.subjects.map((subject) => (
-                <td key={subject.id} className={subject.attended ? 'present' : 'absent'}>
-                  {subject.attended ? 'Был' : 'Не был'}
-                </td>
+      {!selectedGroup || !selectedDate ? (
+        <div className="no-data">
+          Пожалуйста, выберите группу и дату для отображения посещаемости
+        </div>
+      ) : attendance.length === 0 ? (
+        <div className="no-data">
+          Нет данных о посещаемости для выбранной группы и даты
+        </div>
+      ) : (
+        <div className="table-wrapper">
+          <table className="teacher-attendance-table">
+            <thead>
+              <tr>
+                <th>№</th>
+                <th>ФИО</th>
+                <th>Телефон</th>
+                {uniqueSubjectIds.map(subjectId => (
+                  <th key={subjectId}>{getSubjectName(subjectId)}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {attendance.map((student, index) => (
+                <tr key={student.id}>
+                  <td>{index + 1}</td>
+                  <td>{student.name}</td>
+                  <td>{getStudentPhone(student.studentId)}</td>
+                  {uniqueSubjectIds.map(subjectId => {
+                    const subjectAttendance = student.subjects.find(s => s.subjectId === subjectId);
+                    return (
+                      <td 
+                        key={`${student.id}-${subjectId}`}
+                        className={subjectAttendance?.attended ? 'present' : 'absent'}
+                      >
+                        {subjectAttendance?.attended ? 'Был' : 'Не был'}
+                      </td>
+                    );
+                  })}
+                </tr>
               ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };

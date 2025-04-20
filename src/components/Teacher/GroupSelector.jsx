@@ -1,64 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { getGroups } from '../../api/students';
+import React from 'react';
 import DateSelector from '../Student/DateSelector';
 import './GroupSelector.css';
 
-const GroupSelector = ({ onGroupChange, onDateChange }) => {
-  const [groups, setGroups] = useState([]);
-  const [selectedGroup, setSelectedGroup] = useState('');
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
-
-  useEffect(() => {
-    const fetchGroups = async () => {
-      try {
-        const data = await getGroups();
-        setGroups(data);
-        if (data.length > 0) {
-          setSelectedGroup(data[0].id);
-          if (onGroupChange) {
-            onGroupChange(data[0].id);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching groups:', error);
-      }
-    };
-
-    fetchGroups();
-  }, []);
-
-  const handleGroupChange = (e) => {
-    const groupId = e.target.value;
-    setSelectedGroup(groupId);
-    if (onGroupChange) {
-      onGroupChange(groupId);
-    }
-  };
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    if (onDateChange) {
-      onDateChange(date);
-    }
-  };
-
+const GroupSelector = ({ groups, selectedGroup, onGroupChange, date, onDateChange }) => {
   return (
-    <div className="selectors-container">
+    <div className="group-selector-container">
       <div className="group-selector">
-        <label htmlFor="group">Выберите группу:</label>
+        <label htmlFor="group-select">Группа:</label>
         <select
-          id="group"
-          value={selectedGroup}
-          onChange={handleGroupChange}
+          id="group-select"
+          value={selectedGroup || ''}
+          onChange={(e) => onGroupChange(e.target.value || null)}
+          disabled={!groups.length}
         >
-          {groups.map((group) => (
+          <option value="" disabled>Выберите группу</option>
+          {groups.map(group => (
             <option key={group.id} value={group.id}>
               {group.name}
             </option>
           ))}
         </select>
       </div>
-      <DateSelector onDateChange={handleDateChange} />
+      <DateSelector date={date} onDateChange={onDateChange} />
     </div>
   );
 };

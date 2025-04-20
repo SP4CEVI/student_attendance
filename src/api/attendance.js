@@ -4,10 +4,11 @@ const API_URL = '/api';
 
 export const getGroups = async () => {
   try {
-    const response = await axios.get(`${API_URL}/groups`);
+    const response = await axios.get('/api/groups');
     return response.data;
   } catch (error) {
-    throw new Error('Ошибка при получении списка групп');
+    console.error('Error fetching groups:', error);
+    return [];
   }
 };
 

@@ -6,6 +6,7 @@
   
   .group-selector {
     flex: 1;
+    margin-bottom: 10px;
   }
   
   .group-selector label {
