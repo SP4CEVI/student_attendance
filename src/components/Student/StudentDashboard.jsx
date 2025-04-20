@@ -9,8 +9,6 @@ const StudentDashboard = () => {
     <div className="student-dashboard">
       <Header />
       <div className="content">
-        <h2>Моя посещаемость</h2>
-        <DateSelector />
         <AttendanceTable />
       </div>
     </div>

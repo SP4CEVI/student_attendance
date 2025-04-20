@@ -7,7 +7,7 @@ module.exports = function(app) {
       target: 'http://localhost:3001',
       changeOrigin: true,
       pathRewrite: {
-        '^/api': '', // Убираем /api из пути
+        '^/api': '', 
       },
     })
   );

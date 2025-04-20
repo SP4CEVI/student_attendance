@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
-import { format, parseISO } from 'date-fns';
+import React from 'react';
+import { format, parseISO, isValid, getDay } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import './DateSelector.css';
 
-const DateSelector = ({ onDateChange }) => {
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
-
-  const handleDateChange = (e) => {
-    const date = e.target.value;
-    setSelectedDate(date);
-    if (onDateChange) {
-      onDateChange(date);
+const DateSelector = ({ date, onDateChange }) => {
+  const handleChange = (e) => {
+    const selectedDate = e.target.value;
+    if (onDateChange && typeof onDateChange === 'function') {
+      onDateChange(selectedDate);
     }
   };
 
-  const formattedDate = format(parseISO(selectedDate), 'EEEE, d MMMM yyyy', { locale: ru });
+  const formattedDate = date && isValid(parseISO(date)) 
+    ? format(parseISO(date), 'EEEE, d MMMM yyyy', { locale: ru })
+    : 'Дата не выбрана';
 
   return (
     <div className="date-selector">
@@ -22,8 +21,9 @@ const DateSelector = ({ onDateChange }) => {
       <input
         type="date"
         id="date"
-        value={selectedDate}
-        onChange={handleDateChange}
+        value={date || ''}
+        onChange={handleChange}
+        max={new Date().toISOString().split('T')[0]}
       />
       <div className="selected-date">{formattedDate}</div>
     </div>

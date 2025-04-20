@@ -9,7 +9,6 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Проверка авторизации при загрузке
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {

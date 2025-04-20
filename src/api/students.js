@@ -8,6 +8,6 @@ export const getGroups = async () => {
       return response.data;
     } catch (error) {
       console.error('Error fetching groups:', error);
-      return []; // Возвращаем пустой массив при ошибке
+      return [];
     }
   };

@@ -10,7 +10,6 @@ const TeacherDashboard = () => {
       <Header />
       <div className="content">
         <h2>Управление посещаемостью</h2>
-        <GroupSelector />
         <TeacherAttendanceTable />
       </div>
     </div>

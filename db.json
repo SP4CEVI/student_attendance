@@ -1,140 +1,174 @@
 {
-    "users": [
-      {
-        "id": 1,
-        "username": "student1",
-        "password": "password1",
-        "name": "Иванов Иван Иванович",
-        "phone": "+7 (123) 456-7890",
-        "role": "student",
-        "groupId": 1
-      },
-      {
-        "id": 2,
-        "username": "teacher1",
-        "password": "password1",
-        "name": "Петрова Мария Сергеевна",
-        "phone": "+7 (987) 654-3210",
-        "role": "teacher"
-      }
-    ],
-    "groups": [
-      {
-        "id": 1,
-        "name": "Группа 101"
-      },
-      {
-        "id": 2,
-        "name": "Группа 102"
-      }
-    ],
-    "students": [
-      {
-        "id": 1,
-        "name": "Иванов Иван Иванович",
-        "phone": "+7 (123) 456-7890",
-        "groupId": 1
-      },
-      {
-        "id": 2,
-        "name": "Петров Петр Петрович",
-        "phone": "+7 (111) 222-3333",
-        "groupId": 1
-      },
-      {
-        "id": 3,
-        "name": "Сидорова Анна Владимировна",
-        "phone": "+7 (444) 555-6666",
-        "groupId": 2
-      }
-    ],
-    "subjects": [
-      {
-        "id": 1,
-        "name": "Математика"
-      },
-      {
-        "id": 2,
-        "name": "Физика"
-      },
-      {
-        "id": 3,
-        "name": "Информатика"
-      },
-      {
-        "id": 4,
-        "name": "История"
-      }
-    ],
-    "attendance": [
-      {
-        "id": 1,
-        "studentId": 1,
-        "date": "2023-05-01",
-        "subjects": [
-          {
-            "subjectId": 1,
-            "attended": true
-          },
-          {
-            "subjectId": 2,
-            "attended": false
-          },
-          {
-            "subjectId": 3,
-            "attended": true
-          },
-          {
-            "subjectId": 4,
-            "attended": true
-          }
-        ]
-      },
-      {
-        "id": 2,
-        "studentId": 2,
-        "date": "2023-05-01",
-        "subjects": [
-          {
-            "subjectId": 1,
-            "attended": true
-          },
-          {
-            "subjectId": 2,
-            "attended": true
-          },
-          {
-            "subjectId": 3,
-            "attended": false
-          },
-          {
-            "subjectId": 4,
-            "attended": false
-          }
-        ]
-      },
-      {
-        "id": 3,
-        "studentId": 3,
-        "date": "2023-05-01",
-        "subjects": [
-          {
-            "subjectId": 1,
-            "attended": false
-          },
-          {
-            "subjectId": 2,
-            "attended": false
-          },
-          {
-            "subjectId": 3,
-            "attended": true
-          },
-          {
-            "subjectId": 4,
-            "attended": true
-          }
-        ]
-      }
-    ]
-  }
+  "_routes": {
+    "/api/*": "/$1"
+  },
+  "users": [
+    {
+      "id": "1",
+      "username": "student1",
+      "password": "password1",
+      "name": "Иванов Иван Иванович",
+      "phone": "+7 (123) 456-7890",
+      "role": "student",
+      "groupId": 1
+    },
+    {
+      "id": "2",
+      "username": "teacher1",
+      "password": "password1",
+      "name": "Петрова Мария Сергеевна",
+      "phone": "+7 (987) 654-3210",
+      "role": "teacher"
+    }
+  ],
+  "groups": [
+    {
+      "id": "1",
+      "name": "Группа 101"
+    },
+    {
+      "id": "2",
+      "name": "Группа 102"
+    }
+  ],
+  "students": [
+    {
+      "id": "1",
+      "name": "Иванов Иван Иванович",
+      "phone": "+7 (123) 456-7890",
+      "groupId": 1
+    },
+    {
+      "id": "2",
+      "name": "Петров Петр Петрович",
+      "phone": "+7 (111) 222-3333",
+      "groupId": 1
+    },
+    {
+      "id": "3",
+      "name": "Сидорова Анна Владимировна",
+      "phone": "+7 (444) 555-6666",
+      "groupId": 2
+    }
+  ],
+  "subjects": [
+    {
+      "id": "1",
+      "name": "Линейная алгебра"
+    },
+    {
+      "id": "2",
+      "name": "Экология"
+    },
+    {
+      "id": "3",
+      "name": "ПиАПС"
+    },
+    {
+      "id": "4",
+      "name": "ТФКП"
+    }
+  ],
+  "attendance": [
+    {
+      "id": "0c92",
+      "studentId": "1",
+      "name": "Иванов Иван Иванович",
+      "date": "2025-04-19",
+      "groupId": 1,
+      "subjects": [
+        {
+          "subjectId": "1",
+          "attended": false
+        },
+        {
+          "subjectId": "2",
+          "attended": true
+        },
+        {
+          "subjectId": "3",
+          "attended": false
+        },
+        {
+          "subjectId": "4",
+          "attended": false
+        }
+      ]
+    },
+    {
+      "id": "9c5c",
+      "studentId": "2",
+      "name": "Петров Петр Петрович",
+      "date": "2025-04-19",
+      "groupId": 1,
+      "subjects": [
+        {
+          "subjectId": "1",
+          "attended": false
+        },
+        {
+          "subjectId": "2",
+          "attended": false
+        },
+        {
+          "subjectId": "3",
+          "attended": false
+        },
+        {
+          "subjectId": "4",
+          "attended": true
+        }
+      ]
+    },
+    {
+      "id": "3b52",
+      "studentId": "1",
+      "name": "Иванов Иван Иванович",
+      "date": "2025-04-20",
+      "groupId": 1,
+      "subjects": [
+        {
+          "subjectId": "1",
+          "attended": true
+        },
+        {
+          "subjectId": "2",
+          "attended": true
+        },
+        {
+          "subjectId": "3",
+          "attended": true
+        },
+        {
+          "subjectId": "4",
+          "attended": true
+        }
+      ]
+    },
+    {
+      "id": "367b",
+      "studentId": "2",
+      "name": "Петров Петр Петрович",
+      "date": "2025-04-20",
+      "groupId": 1,
+      "subjects": [
+        {
+          "subjectId": "1",
+          "attended": false
+        },
+        {
+          "subjectId": "2",
+          "attended": false
+        },
+        {
+          "subjectId": "3",
+          "attended": false
+        },
+        {
+          "subjectId": "4",
+          "attended": false
+        }
+      ]
+    }
+  ]
+}
