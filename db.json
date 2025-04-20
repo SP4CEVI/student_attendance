@@ -219,6 +219,56 @@
           "attended": false
         }
       ]
+    },
+    {
+      "studentId": "1",
+      "name": "Иванов Иван Иванович",
+      "date": "2025-04-16",
+      "groupId": 1,
+      "subjects": [
+        {
+          "subjectId": "1",
+          "attended": true
+        },
+        {
+          "subjectId": "2",
+          "attended": true
+        },
+        {
+          "subjectId": "3",
+          "attended": false
+        },
+        {
+          "subjectId": "4",
+          "attended": true
+        }
+      ],
+      "id": "7a83"
+    },
+    {
+      "studentId": "2",
+      "name": "Петров Петр Петрович",
+      "date": "2025-04-16",
+      "groupId": 1,
+      "subjects": [
+        {
+          "subjectId": "1",
+          "attended": true
+        },
+        {
+          "subjectId": "2",
+          "attended": false
+        },
+        {
+          "subjectId": "3",
+          "attended": true
+        },
+        {
+          "subjectId": "4",
+          "attended": false
+        }
+      ],
+      "id": "d3aa"
     }
   ]
 }
