@@ -1,0 +1,37 @@
+.teacher-attendance-container {
+    margin-top: 20px;
+  }
+  
+  .teacher-attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .teacher-attendance-table th, .teacher-attendance-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .teacher-attendance-table th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .teacher-attendance-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .teacher-attendance-table tr:hover {
+    background-color: #ddd;
+  }
+  
+  .teacher-attendance-table td.present {
+    background-color: #dff0d8;
+    color: #3c763d;
+  }
+  
+  .teacher-attendance-table td.absent {
+    background-color: #f2dede;
+    color: #a94442;
+  }
