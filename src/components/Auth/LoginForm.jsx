@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
+import Button from '../Shared/Button';
 import './LoginForm.css';
 
 const LoginForm = () => {
@@ -54,9 +55,9 @@ const LoginForm = () => {
               required
             />
           </div>
-          <button type="submit" className="login-button">
+          <Button type="submit" className="login-button">
             Войти
-          </button>
+          </Button>
         </form>
       </div>
     </div>

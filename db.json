@@ -54,19 +54,19 @@
   "subjects": [
     {
       "id": "1",
-      "name": "Линейная алгебра"
+      "name": "1 пара"
     },
     {
       "id": "2",
-      "name": "Экология"
+      "name": "2 пара"
     },
     {
       "id": "3",
-      "name": "ПиАПС"
+      "name": "3 пара"
     },
     {
       "id": "4",
-      "name": "ТФКП"
+      "name": "4 пара"
     }
   ],
   "attendance": [
@@ -155,6 +155,56 @@
         {
           "subjectId": "1",
           "attended": false
+        },
+        {
+          "subjectId": "2",
+          "attended": false
+        },
+        {
+          "subjectId": "3",
+          "attended": false
+        },
+        {
+          "subjectId": "4",
+          "attended": false
+        }
+      ]
+    },
+    {
+      "id": "a6f7",
+      "studentId": "1",
+      "name": "Иванов Иван Иванович",
+      "date": "2025-04-18",
+      "groupId": 1,
+      "subjects": [
+        {
+          "subjectId": "1",
+          "attended": false
+        },
+        {
+          "subjectId": "2",
+          "attended": true
+        },
+        {
+          "subjectId": "3",
+          "attended": false
+        },
+        {
+          "subjectId": "4",
+          "attended": false
+        }
+      ]
+    },
+    {
+      "id": "62ec",
+      "studentId": "2",
+      "name": "Петров Петр Петрович",
+      "date": "2025-04-18",
+      "groupId": 1,
+      "subjects": [
+        {
+          "subjectId": "1",
+          "attended": true
         },
         {
           "subjectId": "2",

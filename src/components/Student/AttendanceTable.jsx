@@ -126,7 +126,7 @@ const AttendanceTable = () => {
   if (!selectedDate) {
     return (
       <div className="attendance-container">
-        <h2>Посещаемость группы {user.groupId}</h2>
+        <h2>Отметить посещаемость</h2>
         <DateSelector date={selectedDate} onDateChange={handleDateChange} />
         <div className="no-date-selected">
           Пожалуйста, выберите дату для отображения посещаемости
@@ -138,7 +138,7 @@ const AttendanceTable = () => {
   if (loading) {
     return (
       <div className="attendance-container">
-        <h2>Посещаемость группы {user.groupId}</h2>
+        <h2>Отметить посещаемость</h2>
         <DateSelector date={selectedDate} onDateChange={handleDateChange} />
         <div className="loading">Загрузка данных...</div>
       </div>
@@ -147,7 +147,7 @@ const AttendanceTable = () => {
 
   return (
     <div className="attendance-container">
-      <h2>Посещаемость группы {user.groupId}</h2>
+      <h2>Отметить посещаемость</h2>
       <DateSelector date={selectedDate} onDateChange={handleDateChange} />
       
       <div className="table-wrapper">

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import UserDropdown from './UserDropdown';
+import logo from '../../assets/images/Inverse.png';
 import './Header.css';
 
 const Header = () => {
@@ -9,7 +10,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-left">
-        <svg src="/images/logo.svg" alt="Логотип" className="logo" />
+        <img src={logo} alt="Логотип" className="logo" />
         <h1>Посещаемость</h1>
       </div>
       {user && (

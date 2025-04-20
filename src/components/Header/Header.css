@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
-    background-color: #4CAF50;
+    background-color: #0095DA;
     color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
@@ -33,20 +33,31 @@
     align-items: center;
     gap: 5px;
   }
+
+  .menu-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .menu-bar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background-color: #fff;
+  }
   
   .dropdown-menu {
     position: absolute;
     right: 0;
     top: 100%;
-    background-color: white;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    min-width: 120px;
     z-index: 100;
   }
   
   .dropdown-item {
-    width: 100%;
+    width: auto;
     padding: 10px 15px;
     text-align: left;
     border: none;
