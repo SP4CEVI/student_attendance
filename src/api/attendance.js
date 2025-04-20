@@ -28,15 +28,31 @@ export const getGroupAttendance = async (groupId, date) => {
 
 export const updateAttendance = async (attendanceRecords) => {
   try {
-    const promises = attendanceRecords.map(record => {
-      if (record.id) {
-        return axios.put(`${API_URL}/attendance/${record.id}`, record);
+    const date = attendanceRecords[0]?.date;
+    const groupId = attendanceRecords[0]?.groupId;
+    
+    if (!date || !groupId) {
+      throw new Error('Не указана дата или группа');
+    }
+
+    const response = await axios.get(`${API_URL}/attendance?date=${date}&groupId=${groupId}`);
+    const existingRecords = response.data;
+
+    const updatePromises = attendanceRecords.map(async (record) => {
+      const existingRecord = existingRecords.find(
+        r => r.studentId === record.studentId && 
+             r.date === record.date && 
+             r.groupId === record.groupId
+      );
+
+      if (existingRecord) {
+        return axios.put(`${API_URL}/attendance/${existingRecord.id}`, record);
       } else {
         return axios.post(`${API_URL}/attendance`, record);
       }
     });
-    
-    await Promise.all(promises);
+
+    await Promise.all(updatePromises);
     return true;
   } catch (error) {
     console.error('Error saving attendance:', error);

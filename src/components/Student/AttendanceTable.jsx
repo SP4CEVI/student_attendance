@@ -157,7 +157,7 @@ const AttendanceTable = () => {
               <th rowSpan="2">№</th>
               <th rowSpan="2">ФИО</th>
               <th rowSpan="2">Телефон</th>
-              <th colSpan={subjects.length}>Предметы</th>
+              <th colSpan={subjects.length}>Присутствие</th>
             </tr>
             <tr>
               {subjects.map(subject => (
