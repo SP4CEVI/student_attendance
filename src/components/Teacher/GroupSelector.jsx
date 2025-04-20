@@ -6,7 +6,7 @@ const GroupSelector = ({ groups, selectedGroup, onGroupChange, date, onDateChang
   return (
     <div className="group-selector-container">
       <div className="group-selector">
-        <label htmlFor="group-select">Группа:</label>
+        <label htmlFor="group-select">Выберите группу:</label>
         <select
           id="group-select"
           value={selectedGroup || ''}
