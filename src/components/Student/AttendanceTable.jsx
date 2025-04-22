@@ -6,40 +6,40 @@ import DateSelector from './DateSelector';
 import './AttendanceTable.css';
 import { getDay, parseISO } from 'date-fns';
 
-const AttendanceTable = () => {
+const AttendanceTable = () => { /* Таблица посещаемости */
   const { user } = useContext(AuthContext);
-  const [students, setStudents] = useState([]);
-  const [attendance, setAttendance] = useState([]);
-  const [subjects, setSubjects] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [saving, setSaving] = useState(false);
+  const [students, setStudents] = useState([]);             /* Массив студентов */
+  const [attendance, setAttendance] = useState([]);         /* Массив данных о посещаемости */
+  const [subjects, setSubjects] = useState([]);             /* Массив предметов */
+  const [loading, setLoading] = useState(false);            /* Флаг, указывающий, идет ли загрузка данных */
+  const [selectedDate, setSelectedDate] = useState(null);   /* Выбранная дата */
+  const [saving, setSaving] = useState(false);              /*  Флаг, указывающий, идет ли сохранение данных */
 
-  const isSunday = selectedDate && getDay(parseISO(selectedDate)) === 0;
+  const isSunday = selectedDate && getDay(parseISO(selectedDate)) === 0;    /* переменная, определяющая, является ли выбранная дата воскресеньем */
 
-  useEffect(() => {
+  useEffect(() => { /* отвечает за загрузку данных при изменении selectedDate  или user.groupI */
     if (!selectedDate) return;
   
-    const fetchData = async () => {
-      try {
+    const fetchData = async () => { /* Объявление асинхронной функции fetchData для загрузки данных */
+      try { /* Пытаемся загрузить данные */
         setLoading(true);
         
-        const [studentsData, subjectsData] = await Promise.all([
-          getGroupStudents(user.groupId),
-          getSubjects()
+        const [studentsData, subjectsData] = await Promise.all([ /* Promise.all для одновременной загрузки данных о студентах и предметах */
+          getGroupStudents(user.groupId), /* Загружает список студентов из группы пользователя. */
+          getSubjects() /* Загружает Загружает список предметов. */
         ]);
         
-        setStudents(studentsData);
-        setSubjects(subjectsData);
+        setStudents(studentsData); /* Обновляет состояния students */
+        setSubjects(subjectsData);  /* Обновляет состояния subjects */
 
-        const attendanceData = await getGroupAttendance(user.groupId, selectedDate);
+        const attendanceData = await getGroupAttendance(user.groupId, selectedDate); /* Загружает данные об успеваемости за выбранную дату. */
         
-        if (attendanceData.length === 0) {
-          const initialAttendance = studentsData.map(student => ({
-            studentId: student.id,
-            name: student.name,
-            date: selectedDate,
-            groupId: user.groupId,
+        if (attendanceData.length === 0) { /* Проверяет, были ли найдены данные об успеваемости за выбранную дату. */
+            const initialAttendance = studentsData.map(student => ({    /* Если данные об успеваемости за выбранную дату */  
+            studentId: student.id,                                      /* отсутствуют в базе данныхCоздаются начальные  */
+            name: student.name,                                         /* данные об успеваемости для всех студентов,    */
+                date: selectedDate,                                     /* используя полученныеданные о студентах и предметах */
+                groupId: user.groupId,                                      
             subjects: subjectsData.map(subject => ({
               subjectId: subject.id,
               subjectName: subject.name,
@@ -76,7 +76,7 @@ const AttendanceTable = () => {
     setSelectedDate(date);
   };
 
-  const toggleAttendance = (studentId, subjectId) => {
+  const toggleAttendance = (studentId, subjectId) => { /* Измнение посещаемости: (студент, предмет) */
     setAttendance(prev => prev.map(record => {
       if (record.studentId === studentId) {
         return {
@@ -92,13 +92,13 @@ const AttendanceTable = () => {
     }));
   };
 
-  const handleSave = async () => {
+  const handleSave = async () => { /* Если дата не выбрана */
     if (!selectedDate) {
       alert('Пожалуйста, выберите дату');
       return;
     }
 
-    try {
+    try { /* Пытаемся сохранит изменения */
       setSaving(true);
       
       const dataToSave = attendance.map(record => ({

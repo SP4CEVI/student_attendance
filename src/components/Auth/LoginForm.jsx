@@ -4,14 +4,18 @@ import { AuthContext } from '../../contexts/AuthContext';
 import Button from '../Shared/Button';
 import './LoginForm.css';
 
+/* Это компонент LoginForm для аутентификации пользователей. Он позволяет пользователю ввести логин и пароль, 
+  отправляет эти данные на сервер для проверки, и, в случае успешной аутентификации, перенаправляет 
+  пользователя на соответствующую страницу (студент или преподаватель).
+ */
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { login } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); /* Получает функцию navigate для перенаправления пользователя после успешной аутентификации */
 
-  const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => { /* Вызывается при отправке формы */
     e.preventDefault();
     setError('');
     
